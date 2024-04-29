@@ -306,6 +306,13 @@ select {
     display: none;
 }
 
+@supports (backdrop-filter: blur(1.5rem)) {
+    .primary-navigation {
+        background: hsl( var(--clr-white) / 0.05);
+        backdrop-filter: blur(1.5rem); 
+    }
+}
+
 @media (max-width: 35rem) {
     .primary-navigation {
         --underline-gap: .5rem;
@@ -431,7 +438,24 @@ select {
     background-color: hsl( var(--clr-white) / 1); 
 }
 
+.number-indicators > * {
+    cursor: pointer;
+    border: 2px solid hsl( var(--clr-white) / .25);
+    border-radius: 50%;
+    background-color: hsl( var(--clr-dark) );
+    color: hsl( var(--clr-white) );
+    aspect-ratio: 1;
+}
 
+.number-indicators > *:hover,
+.number-indicators > *:focus {
+    border-color: hsl( var(--clr-white) / .5);
+}
+
+.number-indicators > [aria-selected="true"] {
+    background-color: hsl( var(--clr-white) / 1); 
+    color: hsl( var(--clr-dark) )
+}
 
 /* ----------------------------- */
 /* Page specific background      */
@@ -478,7 +502,7 @@ body {
 
 /* crew */
 .crew {
-    background-image: url(../assets/home/background-crew-mobile.jpg);
+    background-image: url(../assets/crew/background-crew-mobile.jpg);
 }
 
 @media (min-width: 35rem) {
@@ -491,6 +515,23 @@ body {
 @media (min-width: 45rem) {
     .crew {
         background-image: url(../assets/crew/background-crew-desktop.jpg);
+    }
+} 
+/* technology */
+.technology {
+    background-image: url(../assets/technology/background-technology-mobile.jpg);
+}
+
+@media (min-width: 35rem) {
+    .technology {
+        background-position: center center;
+        background-image: url(../assets/technology/background-technology-tablet.jpg);
+    }
+}
+
+@media (min-width: 45rem) {
+    .technology {
+        background-image: url(../assets/technology/background-technology-desktop.jpg);
     }
 } 
 
@@ -529,6 +570,7 @@ body {
 .grid-container--destination > picture {
     grid-area: image;
     max-width: 60%;
+    align-self: start;
 }
 
 .grid-container--destination > .tab-list {
@@ -577,6 +619,36 @@ body {
 
 .crew-details h2 {
     color: hsl( var(--clr-white) / .5);
+}
+
+/*technology layout */
+
+.grid-container--technology {
+    --flow-space: 2rem;
+    padding-inline: 0;
+    grid-template-areas: 
+        'title'
+        'image'
+        'tabs'
+        'content';
+}
+
+.grid-container--technology h1 {
+    padding-inline-start: 2rem;
+}
+
+.grid-container--technology > .technology-details {
+    grid-area: content;
+}
+.technology-details {
+    padding-inline: 2rem;
+}
+.grid-container--technology > .number-indicators {
+    grid-area: tabs;
+    display: flex;
+    gap: 1rem;
+    aspect-ratio: 2;
+    justify-content: center;
 }
 
 @media (min-width: 35em) {
@@ -631,8 +703,7 @@ body {
             '. image content .';
     }
     
-    .grid-container--destination > picture,
-    .grid-container--crew > picture{
+    .grid-container--destination > picture {
         max-width: 90%;
     }
      
@@ -642,18 +713,43 @@ body {
     }
     
     .grid-container--crew {
+        grid-template-columns: minmax(1rem, 1fr) minmax(0, 37rem) minmax(0, 23rem) minmax(1rem, 1fr);
+        justify-items: start;
         grid-template-areas: 
             '. title title .'
             '. content image .'
             '. tabs image .';
     }
     
-    .grid-container--crew > .dot-indicators {
-        justify-self: start;
+    .grid-container--crew > picture {
+        grid-column: span 2;
+        align-self: end;
+        max-width: 90%;
+    }
+    .grid-container--technology {
+        grid-template-areas: 
+            '. title title .'
+            '. content image .'
+            '. tabs image .';
+            grid-template-columns: minmax(9rem, 1fr)  minmax(0, 40rem) minmax(0, 30rem);
+            justify-items: start;   
+            --gap: 3rem;
+    }
+
+    .grid-container--technology picture {
+        grid-column: span 2;
+    }
+    .grid-container--technology > .number-indicators {
+        grid-area: tabs;
+        display: grid;
+        gap: 1.5rem;
+        aspect-ratio: .6;
+        position: absolute;
+        justify-content: start;
+        padding-inline-start: 8rem;
     }
     
-    /* .grid-container--crew > picture {
+    .grid-container--technology > picture{
         align-self: end;
-    } */
-
+    }
 }
